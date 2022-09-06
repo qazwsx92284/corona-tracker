@@ -29,7 +29,6 @@ public class Corona {
 
     private Long confirmed;
 
-    @Column(name="lastUpdate")
     private LocalDateTime lastUpdate;
 
 }
