@@ -1,8 +1,10 @@
 package com.min0.corona.controller;
 
 import com.min0.corona.pojo.Corona;
+import com.min0.corona.repository.CoronaRepository;
 import com.opencsv.CSVReader;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,9 @@ import java.util.Objects;
 @Controller
 @Slf4j
 public class MainController {
+
+    @Autowired
+    CoronaRepository coronaRepository;
 
     @GetMapping("/")
     public String root (Model model) throws IOException {
@@ -48,6 +53,7 @@ public class MainController {
             corona.setLastUpdate(LocalDateTime.parse(line[2], formatter));
 
             log.info(corona.toString());
+            coronaRepository.save(corona);
         }
         return "mainTemplate";
     }

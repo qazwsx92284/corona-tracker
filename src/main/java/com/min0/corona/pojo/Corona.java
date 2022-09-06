@@ -1,7 +1,9 @@
 package com.min0.corona.pojo;
 
 import lombok.*;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -10,9 +12,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @ToString
+@Entity
+@EnableAutoConfiguration
 public class Corona {
 
-    private String combinedKey;
+    @Id
+    @Column(name = "id", updatable=false, unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+//    private String combinedKey;
 
     private Double active;
 
@@ -20,6 +29,7 @@ public class Corona {
 
     private Long confirmed;
 
+    @Column(name="lastUpdate")
     private LocalDateTime lastUpdate;
 
 }
